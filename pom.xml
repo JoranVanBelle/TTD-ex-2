@@ -10,12 +10,25 @@
   <name>Oefening2</name>
   <url>http://maven.apache.org</url>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.1</version>
+        <relativePath/>
+    </parent>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <avro.version>1.10.1</avro.version>
   </properties>
 
   <dependencies>
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-test</artifactId>
+          <version>3.1.4</version>
+          <scope>test</scope>
+      </dependency>
+
       <dependency>
           <groupId>org.apache.kafka</groupId>
           <artifactId>kafka-clients</artifactId>
@@ -39,12 +52,6 @@
           <scope>test</scope>
       </dependency>
       <dependency>
-          <groupId>org.mockito</groupId>
-          <artifactId>mockito-junit-jupiter</artifactId>
-          <version>5.3.1</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
           <groupId>org.apache.avro</groupId>
           <artifactId>avro</artifactId>
           <version>1.11.3</version>
@@ -62,16 +69,15 @@
           <scope>test</scope>
       </dependency>
       <dependency>
-          <groupId>org.junit.jupiter</groupId>
-          <artifactId>junit-jupiter-params</artifactId>
-          <version>5.10.0</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
           <groupId>io.confluent</groupId>
           <artifactId>kafka-avro-serializer</artifactId>
           <version>7.3.1</version>
           <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>io.confluent</groupId>
+          <artifactId>kafka-streams-avro-serde</artifactId>
+          <version>5.2.1</version>
       </dependency>
 
   </dependencies>
