@@ -42,7 +42,7 @@ public class CsvScannerImplTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"firstName;lastName;a-number;job;city", "firstName;lastName;24L;job;city", "firstName;lastName;24.0;job;city"})
+    @ValueSource(strings = {"firstName;lastName;a-number;job;city", "firstName;lastName;24L;job;city", "firstName;lastName;24.0;job;city", "firstName;lastName;-24;job;city"})
     public void csvCannotBeConverted_correctFormatWrongParams_ErrorIsThrown(String input) {
         InputStream in = new ByteArrayInputStream(input.getBytes());
 
