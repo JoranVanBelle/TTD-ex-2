@@ -61,10 +61,5 @@ public class ProducerFactoryCreatorImplTest {
 
         }
     }
-    // Factory created
-    @Test
-    public void creationOfFactorySucceeds() {
-
-    }
 
 }

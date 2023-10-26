@@ -3,6 +3,7 @@ package org.example.infra;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.example.Person;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -30,11 +31,15 @@ public class PersonProducerImplTest {
         this.personProducer = new PersonProducerImpl(producer);
     }
 
-    @Test
-    public void producerSentMessageToKafka_noErrors() {
+    @Nested
+    class WhenNothingGoesWrong {
 
-        personProducer.sendRecord(new Person());
+        @Test
+        public void thenTheMessageIsSentOnce() {
 
-        verify(producer).send(any());
+            personProducer.sendRecord(new Person());
+
+            verify(producer).send(any());
+        }
     }
 }
