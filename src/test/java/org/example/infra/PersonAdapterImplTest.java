@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -13,8 +14,8 @@ public class PersonAdapterImplTest {
 
     private PersonAdapterImpl personAdapter;
 
-    @BeforeAll
-    void beforeAll() {
+    @BeforeEach
+    void beforeEach() {
         this.personAdapter = new PersonAdapterImpl();
     }
 
@@ -27,7 +28,7 @@ public class PersonAdapterImplTest {
 
         var person = personAdapter.getPerson(personString);
 
-        assertEquals("firstName", person.getFirstname());
+        assertEquals("firstName", person.getFirstName());
         assertEquals("lastName", person.getLastName());
         assertEquals(24, person.getAge());
         assertEquals("job", person.getJob());
