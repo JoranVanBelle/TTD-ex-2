@@ -24,6 +24,8 @@ public class CsvScannerImplTest {
 
     private CsvScannerImpl csvScanner;
 
+    private InputStream in;
+
     @BeforeEach
     void beforeEach() {
         this.csvScanner = new CsvScannerImpl();
@@ -32,9 +34,18 @@ public class CsvScannerImplTest {
     @Nested
     class WhenCorrectCsvIsGiven {
 
+        @BeforeEach
+        void beforeEach() {
+            in = new ByteArrayInputStream(
+                    (
+                    "firstName;lastName;age;job;city\n" +
+                    "joran;van belle;22;developer;lichtervelde\n" +
+                    "benjamin;barrett;31;developer;roeselare"
+                    ).getBytes());
+        }
+
         @Test
         public void thenAListOfStringsIsReturned() {
-            InputStream in = new ByteArrayInputStream("joran;van belle;22;developer;lichtervelde\nbenjamin;barrett;31;developer;roeselare".getBytes());
 
             List<Row> result = csvScanner.readCsv(in);
 
@@ -43,8 +54,6 @@ public class CsvScannerImplTest {
 
         @Test
         public void thenTheResultOnlyContainsTheInputFields() {
-            InputStream in = new ByteArrayInputStream("joran;van belle;22;developer;lichtervelde\nbenjamin;barrett;31;developer;roeselare".getBytes());
-
             List<Row> result = csvScanner.readCsv(in);
 
             var person = result.get(0).personString();
