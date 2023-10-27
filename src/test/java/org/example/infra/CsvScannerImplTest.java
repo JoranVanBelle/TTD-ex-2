@@ -56,7 +56,7 @@ public class CsvScannerImplTest {
         public void thenTheResultOnlyContainsTheInputFields() {
             List<Row> result = csvScanner.readCsv(in);
 
-            var person = result.get(0).personString();
+            var person = result.get(0).personData();
 
             assertThat(person.get(0), is(equalTo("joran")));
             assertThat(person.get(1), is(equalTo("van belle")));

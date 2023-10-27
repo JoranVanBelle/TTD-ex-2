@@ -45,22 +45,44 @@ public class PersonAdapterImplTest {
     }
 
     @Nested
-    class WhenParametersAreMissing {
+    class WhenNumberOfParametersIsNotGood {
 
-        @ParameterizedTest
-        @MethodSource("parametersAreMissing")
-        public void thenErrorIsThrownAndNoPersonObjectCreated(Row row) {
-            assertThrows(IllegalArgumentException.class, () -> personAdapter.getPerson(row));
+        @Nested
+        class WhenParametersAreMissing {
+            @ParameterizedTest
+            @MethodSource("parametersAreMissing")
+            public void thenErrorIsThrownAndNoPersonObjectCreated(Row row) {
+                assertThrows(IllegalArgumentException.class, () -> personAdapter.getPerson(row));
+            }
+
+            private static Stream<Arguments> parametersAreMissing() {
+                return Stream.of(
+                        Arguments.of(new Row(List.of("firstName", "lastName", "job", "city"))),
+                        Arguments.of(new Row(List.of("lastName", "age", "job", "city"))),
+                        Arguments.of(new Row(List.of("firstName", "lastName", "age", "job"))),
+                        Arguments.of(new Row(List.of("firstName", "age", "job", "city")))
+                );
+            }
         }
 
-        private static Stream<Arguments> parametersAreMissing() {
-            return Stream.of(
-                    Arguments.of(new Row(List.of("firstName", "lastName", "job", "city"))),
-                    Arguments.of(new Row(List.of("lastName", "age", "job", "city"))),
-                    Arguments.of(new Row(List.of("firstName", "lastName", "age", "job"))),
-                    Arguments.of(new Row(List.of("firstName", "age", "job", "city"))),
-                    Arguments.of(new Row(List.of("firstName", "lastName", "randomValue", "job", "city")))
-            );
+        @Nested
+        class WhenTooManyParametersAreAvailable {
+            @ParameterizedTest
+            @MethodSource("parametersAreMissing")
+            public void thenErrorIsThrownAndNoPersonObjectCreated(Row row) {
+                assertThrows(IllegalArgumentException.class, () -> personAdapter.getPerson(row));
+            }
+
+            private static Stream<Arguments> parametersAreMissing() {
+                return Stream.of(
+                        Arguments.of(new Row(List.of("firstName", "middleName", "lastName", "age", "job", "city"))),
+                        Arguments.of(new Row(List.of("marialState", "firstName", "lastName", "age", "job", "city"))),
+                        Arguments.of(new Row(List.of("firstName", "lastName", "marialState", "age", "job", "city"))),
+                        Arguments.of(new Row(List.of("firstName", "lastName", "age", "marialState", "job", "city"))),
+                        Arguments.of(new Row(List.of("firstName", "lastName", "age", "job", "marialState", "city"))),
+                        Arguments.of(new Row(List.of("firstName", "lastName", "age", "job", "city", "marialState")))
+                );
+            }
         }
     }
 
@@ -76,8 +98,8 @@ public class PersonAdapterImplTest {
         private static Stream<Arguments> wrongParameters() {
             return Stream.of(
                     Arguments.of(new Row(List.of("firstName", "lastName", "aNumber", "job", "city"))),
-                    Arguments.of(new Row(List.of("firstName", "lastName", "age", "job", "city"))),
-                    Arguments.of(new Row(List.of("firstName", "lastName", "age", "job")))
+                    Arguments.of(new Row(List.of("firstName", "lastName", "-1", "job", "city"))),
+                    Arguments.of(new Row(List.of("firstName", "lastName", "1.1", "job", "city")))
             );
         }
     }
