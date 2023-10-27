@@ -35,7 +35,7 @@ public class ProducerFactoryCreatorImplTest {
 
             @Test
             public void thenAnErrorIsThrown() {
-                assertThrows(IllegalArgumentException.class, () -> factoryCreator.createProducerFactory(null));
+                assertThrows(NullPointerException.class, () -> factoryCreator.createProducerFactory(null));
             }
 
         }
