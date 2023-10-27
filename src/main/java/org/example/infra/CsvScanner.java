@@ -9,6 +9,4 @@ public interface CsvScanner {
 
     List<Row> readCsv(InputStream in);
 
-    Row createRow(String inputRow);
-
 }

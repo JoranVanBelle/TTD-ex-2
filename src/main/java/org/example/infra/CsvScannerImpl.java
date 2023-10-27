@@ -17,8 +17,4 @@ public class CsvScannerImpl implements CsvScanner {
 
         return null;
     }
-
-    public Row createRow(String inputRow) {
-        return null;
-    }
 }

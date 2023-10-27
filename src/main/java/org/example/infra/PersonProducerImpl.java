@@ -15,8 +15,4 @@ public class PersonProducerImpl implements PersonProducer{
 
     public void sendRecord(Person person) {
     }
-
-    public static SpecificAvroSerde<Person> personSerde(String schema_registry) {
-        return null;
-    }
 }

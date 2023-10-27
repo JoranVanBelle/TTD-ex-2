@@ -32,9 +32,7 @@ public class PersonAdapterImplTest {
 
         @Test
         public void thenIsStringConvertedToPersonObject() {
-            Row personString = new Row(List.of("firstName", "lastName", "24", "job", "city")); // As I am writing my tests,
-            // I am thinking this is a redundant work compared to the scanner
-            // I did this because I want to have all the different functionalities in a seperate class
+            Row personString = new Row(List.of("firstName", "lastName", "24", "job", "city"));
 
             var person = personAdapter.getPerson(personString);
 
