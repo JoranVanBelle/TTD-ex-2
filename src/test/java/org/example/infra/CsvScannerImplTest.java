@@ -35,9 +35,19 @@ public class CsvScannerImplTest {
 
             List<Row> result = csvScanner.readCsv(in);
 
-            var person = result.get(0);
+            var person = result.get(0).person();
 
             assertEquals(2, result.size());
+        }
+
+        @Test
+        public void thenTheReturnedResultIsAsExpected() {
+            InputStream in = new ByteArrayInputStream("joran;van belle;22;developer;lichtervelde\nbenjamin;barrett;31;developer;roeselare".getBytes());
+
+            List<Row> result = csvScanner.readCsv(in);
+
+            var person = result.get(0).person();
+
             assertEquals("joran", person.firstName());
             assertEquals("van belle", person.lastName());
             assertEquals("22", person.age());
