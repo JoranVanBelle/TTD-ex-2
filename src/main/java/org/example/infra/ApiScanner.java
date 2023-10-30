@@ -1,9 +1,10 @@
 package org.example.infra;
 
+import org.example.entity.CompleteWeatherInformation;
 import org.json.JSONObject;
 
 public interface ApiScanner {
 
-    JSONObject getApiResponse(String location);
+    CompleteWeatherInformation getApiResponse(String location);
 
 }

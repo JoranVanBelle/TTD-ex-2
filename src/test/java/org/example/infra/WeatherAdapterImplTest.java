@@ -1,21 +1,21 @@
 package org.example.infra;
 
+import org.example.entity.CompleteWeatherInformation;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
-import static org.example.Contents.apiResponseAsJSONObject;
-import static org.example.Contents.apiResponseWithoutCityAsJSONObject;
-import static org.example.Contents.apiResponseWithoutConditionTextAsJSONObject;
-import static org.example.Contents.apiResponseWithoutTempAsJSONObject;
+import static org.example.Contents.apiResponse;
+import static org.example.Contents.apiResponseWithoutCity;
+import static org.example.Contents.apiResponseWithoutConditionText;
+import static org.example.Contents.apiResponseWithoutTemp;
 import static org.example.Contents.expectedWeatherRegistered;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,7 +36,7 @@ public class WeatherAdapterImplTest {
 
         @Test
         void thenAWeatherObjectIsReturned() throws JSONException {
-            var weatherRegistered = weatherAdapter.getWeather(apiResponseAsJSONObject());
+            var weatherRegistered = weatherAdapter.getWeather(apiResponse());
 
             assertThat(weatherRegistered, is(equalTo(expectedWeatherRegistered())));
         }
@@ -61,16 +61,16 @@ public class WeatherAdapterImplTest {
 
             @ParameterizedTest
             @MethodSource("wrongObjects")
-            void thenIllegalArgumentIsThrown(JSONObject weatherRegistered) {
+            void thenIllegalArgumentIsThrown(CompleteWeatherInformation weatherRegistered) {
                 assertThrows(IllegalArgumentException.class, () -> weatherAdapter.getWeather(weatherRegistered));
             }
 
-            private static Stream<JSONObject> wrongObjects() throws JSONException {
+            private static Stream<CompleteWeatherInformation> wrongObjects() throws JSONException {
                 return Stream.of(
-                        new JSONObject("{}"),
-                        apiResponseWithoutCityAsJSONObject(),
-                        apiResponseWithoutTempAsJSONObject(),
-                        apiResponseWithoutConditionTextAsJSONObject()
+                        new CompleteWeatherInformation(new JSONObject("{}")),
+                        apiResponseWithoutCity(),
+                        apiResponseWithoutTemp(),
+                        apiResponseWithoutConditionText()
                 );
             }
 

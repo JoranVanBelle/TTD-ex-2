@@ -1,7 +1,6 @@
 package org.example.infra;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.matching.StringValuePattern;
 import org.example.configuration.ApiProperties;
 import org.example.extension.WireMockExtension;
 import org.json.JSONException;
@@ -11,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.notFound;
@@ -19,7 +19,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.unauthorized;
 import static org.apache.commons.lang3.StringUtils.chop;
 import static org.example.Contents.apiResponseAsBody;
-import static org.example.Contents.apiResponseAsJSONObject;
+import static org.example.Contents.apiResponse;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -41,7 +41,7 @@ public class ApiScannerImplTest {
 
     @BeforeEach
     void beforeEach() {
-        apiScanner = new ApiScannerImpl();
+        apiScanner = new ApiScannerImpl(apiProperties);
         key = apiProperties.getKey();
         baseUrl = apiProperties.getBaseUrl();
     }
@@ -61,7 +61,7 @@ public class ApiScannerImplTest {
 
             var result = apiScanner.getApiResponse(CITY);
 
-            assertThat(result, is(equalTo(apiResponseAsJSONObject())));
+            assertThat(result, is(equalTo(apiResponse())));
         }
 
     }
@@ -108,8 +108,6 @@ public class ApiScannerImplTest {
 
             @Test
             void thenAnIllegalArgumentExceptionIsThrown() {
-
-                badUrl = "%s?key=%s&q=%s".formatted(chop(baseUrl), key, CITY);
 
                 stubFor(get(baseUrl)
                         .withQueryParam("key", WireMock.equalTo(key))

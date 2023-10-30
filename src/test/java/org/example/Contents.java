@@ -1,6 +1,7 @@
 package org.example;
 
 import com.github.tomakehurst.wiremock.http.Body;
+import org.example.entity.CompleteWeatherInformation;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,8 +53,8 @@ public class Contents {
                 """);
     }
 
-    public static JSONObject apiResponseAsJSONObject() throws JSONException {
-        return new JSONObject("""
+    public static CompleteWeatherInformation apiResponse() throws JSONException {
+        return new CompleteWeatherInformation(new JSONObject("""
                         {
                                     "location": {
                                         "name": "Lichtervelde",
@@ -95,11 +96,11 @@ public class Contents {
                                         "gust_kph": 25.8
                                     }
                                 }
-                """);
+                """));
     }
 
-    public static JSONObject apiResponseWithoutCityAsJSONObject() throws JSONException {
-        return new JSONObject("""
+    public static CompleteWeatherInformation apiResponseWithoutCity() throws JSONException {
+        return new CompleteWeatherInformation(new JSONObject("""
                         {
                                     "location": {
                                         "region": "",
@@ -140,11 +141,11 @@ public class Contents {
                                         "gust_kph": 25.8
                                     }
                                 }
-                """);
+                """));
     }
 
-    public static JSONObject apiResponseWithoutTempAsJSONObject() throws JSONException {
-        return new JSONObject("""
+    public static CompleteWeatherInformation apiResponseWithoutTemp() throws JSONException {
+        return new CompleteWeatherInformation(new JSONObject("""
                         {
                                     "location": {
                                         "name": "Lichtervelde",
@@ -184,11 +185,11 @@ public class Contents {
                                         "gust_kph": 25.8
                                     }
                                 }
-                """);
+                """));
     }
 
-    public static JSONObject apiResponseWithoutConditionTextAsJSONObject() throws JSONException {
-        return new JSONObject("""
+    public static CompleteWeatherInformation apiResponseWithoutConditionText() throws JSONException {
+        return new CompleteWeatherInformation(new JSONObject("""
                         {
                                     "location": {
                                         "name": "Lichtervelde",
@@ -229,7 +230,7 @@ public class Contents {
                                         "gust_kph": 25.8
                                     }
                                 }
-                """);
+                """));
     }
 
 

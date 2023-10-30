@@ -21,7 +21,6 @@ public class WireMockExtension implements BeforeAllCallback, BeforeEachCallback,
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        System.out.println(wireMockServer.isRunning());
         if(!wireMockServer.isRunning()) {
             wireMockServer.start();
         }
