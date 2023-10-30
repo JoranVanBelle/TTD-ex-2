@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 public class ApiScannerImpl implements ApiScanner {
 
-    public JSONObject getApiResponse(String url, String location) {
+    public JSONObject getApiResponse(String location) {
         return null;
     }
 }

@@ -1,5 +1,7 @@
 package org.example.infra;
 
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.matching.StringValuePattern;
 import org.example.configuration.ApiProperties;
 import org.example.extension.WireMockExtension;
 import org.json.JSONException;
@@ -11,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.notFound;
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.unauthorized;
 import static org.apache.commons.lang3.StringUtils.chop;
 import static org.example.Contents.apiResponseAsBody;
 import static org.example.Contents.apiResponseAsJSONObject;
@@ -28,7 +32,6 @@ public class ApiScannerImplTest {
     @Autowired
     ApiProperties apiProperties;
 
-    private String url;
     private String key;
     private String baseUrl;
 
@@ -39,7 +42,6 @@ public class ApiScannerImplTest {
     @BeforeEach
     void beforeEach() {
         apiScanner = new ApiScannerImpl();
-        url = apiProperties.getUrl();
         key = apiProperties.getKey();
         baseUrl = apiProperties.getBaseUrl();
     }
@@ -50,12 +52,14 @@ public class ApiScannerImplTest {
         @Test
         void thenAJsonObjectIsReturned() throws JSONException {
 
-            stubFor(get(url)
+            stubFor(get(baseUrl)
+                    .withQueryParam("key", WireMock.equalTo(key))
+                    .withQueryParam("q", WireMock.equalTo(CITY))
                     .willReturn(ok()
                             .withHeader("Content-Type", "application/json")
                             .withResponseBody(apiResponseAsBody())));
 
-            var result = apiScanner.getApiResponse(url, CITY);
+            var result = apiScanner.getApiResponse(CITY);
 
             assertThat(result, is(equalTo(apiResponseAsJSONObject())));
         }
@@ -72,9 +76,13 @@ public class ApiScannerImplTest {
 
             @Test
             void thenAnIllegalArgumentExceptionIsThrown() {
-                badUrl = baseUrl + "?key&q=%s".formatted(CITY);
 
-                assertThrows(IllegalArgumentException.class, () -> apiScanner.getApiResponse(badUrl, CITY));
+                stubFor(get(baseUrl)
+                        .withQueryParam("q", WireMock.equalTo(CITY))
+                        .willReturn(unauthorized()
+                                .withStatus(401)));
+
+                assertThrows(IllegalArgumentException.class, () -> apiScanner.getApiResponse(CITY));
             }
         }
 
@@ -83,9 +91,14 @@ public class ApiScannerImplTest {
 
             @Test
             void thenAnIllegalArgumentExceptionIsThrown() {
-                badUrl = baseUrl + "?key=badApiKey&q=%s".formatted(CITY);
 
-                assertThrows(IllegalArgumentException.class, () -> apiScanner.getApiResponse(badUrl, CITY));
+                stubFor(get(baseUrl)
+                        .withQueryParam("key", WireMock.equalTo("badApiKey"))
+                        .withQueryParam("q", WireMock.equalTo(CITY))
+                        .willReturn(unauthorized()
+                                .withStatus(401)));
+
+                assertThrows(IllegalArgumentException.class, () -> apiScanner.getApiResponse(CITY));
             }
 
         }
@@ -98,7 +111,13 @@ public class ApiScannerImplTest {
 
                 badUrl = "%s?key=%s&q=%s".formatted(chop(baseUrl), key, CITY);
 
-                assertThrows(IllegalArgumentException.class, () -> apiScanner.getApiResponse(badUrl, CITY));
+                stubFor(get(baseUrl)
+                        .withQueryParam("key", WireMock.equalTo(key))
+                        .withQueryParam("q", WireMock.equalTo(CITY))
+                        .willReturn(notFound()
+                                .withStatus(404)));
+
+                assertThrows(IllegalArgumentException.class, () -> apiScanner.getApiResponse(CITY));
 
             }
 
