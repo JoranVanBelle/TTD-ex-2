@@ -1,5 +1,6 @@
 package org.example.infra;
 
+import org.example.Person;
 import org.example.WeatherRegistered;
 import org.springframework.kafka.core.ProducerFactory;
 
