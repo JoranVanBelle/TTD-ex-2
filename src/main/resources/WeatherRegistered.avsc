@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "WeatherRegistered",
+  "namespace": "org.example",
+  "fields": [
+    {
+      "name": "location",
+      "type": "string"
+    },
+    {
+      "name": "tempC",
+      "type": "double"
+    },
+    {
+      "name": "condition",
+      "type": "string"
+    }
+  ]
+}
