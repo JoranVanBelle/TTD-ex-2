@@ -51,7 +51,7 @@ public class WeatherAdapterImplTest {
 
             @Test
             void thenANoSuchElementIsThrown() {
-                assertThrows(NoSuchElementException.class, () -> weatherAdapter.getWeather(null));
+                assertThrows(NullPointerException.class, () -> weatherAdapter.getWeather(null));
             }
 
         }

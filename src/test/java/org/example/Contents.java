@@ -236,7 +236,7 @@ public class Contents {
 
     public static WeatherRegistered expectedWeatherRegistered() {
         return WeatherRegistered.newBuilder()
-                .setLocation("lichtervelde")
+                .setLocation("Lichtervelde")
                 .setTempC(11.0)
                 .setCondition("Moderate rain")
                 .build();
