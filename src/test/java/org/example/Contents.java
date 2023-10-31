@@ -2,7 +2,6 @@ package org.example;
 
 import com.github.tomakehurst.wiremock.http.Body;
 import org.example.entity.WeatherInformation;
-import org.example.entity.WeatherInformation;
 import org.json.JSONException;
 import org.json.JSONObject;
 

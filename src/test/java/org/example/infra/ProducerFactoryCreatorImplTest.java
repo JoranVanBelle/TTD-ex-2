@@ -44,51 +44,49 @@ public class ProducerFactoryCreatorImplTest {
 
         @Nested
         class WhenAllPropertiesAreAvailable {
-    private ProducerFactoryCreatorImpl factoryCreator;
-
-    @BeforeEach
-    void beforeEach() {
-        this.factoryCreator = new ProducerFactoryCreatorImpl();
-    }
-
-    @Nested
-    class FactoryCreation {
-
-        @Nested
-        class WhenPropertiesAreMissing {
-
-            @Test
-            public void thenAnErrorIsThrown() {
-                assertThrows(NullPointerException.class, () -> factoryCreator.createProducerFactory(null));
-            }
-
-        }
-
-        @Nested
-        class PropertiesAreAvailable {
-
-            private Map<String, Object> props;
+            private ProducerFactoryCreatorImpl factoryCreator;
 
             @BeforeEach
             void beforeEach() {
-                props = new HashMap<>();
-                props.put("bootstrap_servers", "localhost:9092");
-                props.put("key_ser", StringSerializer.class);
-                props.put("value_ser", KafkaAvroSerializer.class);
-                props.put("sr", "http://localhost:8081");
+                this.factoryCreator = new ProducerFactoryCreatorImpl();
             }
 
-            @Test
-            void thenFactoryIsCreated() {
-                assertNotNull(producerFactoryCreator.createWeatherProducerFactory(props));
-            }
+            @Nested
+            class FactoryCreation {
 
-        }
-            public void thenTheFactoryIsCreated() {
-                assertNotNull(factoryCreator.createProducerFactory(props));
-            }
+                @Nested
+                class WhenPropertiesAreMissing {
 
+                    @Test
+                    public void thenAnErrorIsThrown() {
+                        assertThrows(NullPointerException.class, () -> factoryCreator.createPersonProducerFactory(null));
+                        assertThrows(NullPointerException.class, () -> factoryCreator.createWeatherProducerFactory(null));
+                    }
+
+                }
+
+                @Nested
+                class PropertiesAreAvailable {
+
+                    private Map<String, Object> props;
+
+                    @BeforeEach
+                    void beforeEach() {
+                        props = new HashMap<>();
+                        props.put("bootstrap_servers", "localhost:9092");
+                        props.put("key_ser", StringSerializer.class);
+                        props.put("value_ser", KafkaAvroSerializer.class);
+                        props.put("sr", "http://localhost:8081");
+                    }
+
+                    @Test
+                    void thenFactoryIsCreated() {
+                        assertNotNull(producerFactoryCreator.createPersonProducerFactory(props));
+                        assertNotNull(producerFactoryCreator.createWeatherProducerFactory(props));
+                    }
+
+                }
+            }
         }
     }
-
 }
