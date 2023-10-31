@@ -1,8 +1,8 @@
 package org.example.infra;
 
-public interface PersonProducer {
+import org.example.Person;
 
-    KafkaTemplate<String, Person> kafkaTemplate();
+public interface PersonProducer {
 
     void sendRecord(Person person);
 
