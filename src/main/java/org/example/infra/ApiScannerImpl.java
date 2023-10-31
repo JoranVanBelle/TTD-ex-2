@@ -13,17 +13,14 @@ import static org.springframework.http.HttpStatus.OK;
 public class ApiScannerImpl implements ApiScanner {
 
     private final ApiProperties properties;
+    private final RestTemplate restTemplate;
 
-    public ApiScannerImpl(ApiProperties properties) {
+    public ApiScannerImpl(ApiProperties properties, RestTemplate restTemplate) {
         this.properties = properties;
+        this.restTemplate = restTemplate;
     }
 
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
-        return restTemplateBuilder.build();
-    }
-
-    public WeatherInformation getApiResponse(RestTemplate restTemplate, String location) {
+    public WeatherInformation getApiResponse(String location) {
         var responseEntity = restTemplate.getForEntity("%s%s".formatted(properties.getUrl(), location), WeatherInformation.class);
 
         return responseEntity.getStatusCode() == OK ? responseEntity.getBody() : null;

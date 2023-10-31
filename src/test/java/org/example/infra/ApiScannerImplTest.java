@@ -54,7 +54,7 @@ public class ApiScannerImplTest {
 
     @BeforeEach
     void beforeEach() {
-        apiScanner = new ApiScannerImpl(apiProperties);
+        apiScanner = new ApiScannerImpl(apiProperties, restTemplate);
         key = apiProperties.getKey();
         baseUrl = apiProperties.getBaseUrl();
     }
@@ -75,7 +75,7 @@ public class ApiScannerImplTest {
                             .withHeader("Content-Type", "application/json")
                             .withResponseBody(apiResponseAsBody())));
 
-            var result = apiScanner.getApiResponse(restTemplate, CITY);
+            var result = apiScanner.getApiResponse(CITY);
 
             assertThat(result, equalTo(apiResponse()));
         }
@@ -97,7 +97,7 @@ public class ApiScannerImplTest {
                         .willReturn(unauthorized()
                                 .withStatus(401)));
 
-                assertThrows(NullPointerException.class, () -> apiScanner.getApiResponse(restTemplate, CITY));
+                assertThrows(NullPointerException.class, () -> apiScanner.getApiResponse(CITY));
             }
         }
 
@@ -113,7 +113,7 @@ public class ApiScannerImplTest {
                         .willReturn(unauthorized()
                                 .withStatus(401)));
 
-                assertThrows(NullPointerException.class, () -> apiScanner.getApiResponse(restTemplate, CITY));
+                assertThrows(NullPointerException.class, () -> apiScanner.getApiResponse(CITY));
             }
 
         }
@@ -130,7 +130,7 @@ public class ApiScannerImplTest {
                         .willReturn(notFound()
                                 .withStatus(404)));
 
-                assertThrows(NullPointerException.class, () -> apiScanner.getApiResponse(restTemplate, CITY));
+                assertThrows(NullPointerException.class, () -> apiScanner.getApiResponse(CITY));
 
             }
 

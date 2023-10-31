@@ -6,6 +6,6 @@ import org.springframework.web.client.RestTemplate;
 
 public interface ApiScanner {
 
-    WeatherInformation getApiResponse(RestTemplate restTemplate, String location);
+    WeatherInformation getApiResponse(String location);
 
 }

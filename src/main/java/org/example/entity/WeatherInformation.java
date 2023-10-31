@@ -6,18 +6,6 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 public record WeatherInformation(String location, Double temperature, String condition) {
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        WeatherInformation that = (WeatherInformation) o;
-        return Objects.equals(location, that.location) && Objects.equals(temperature, that.temperature) && Objects.equals(condition, that.condition);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(location, temperature, condition);
-    }
 
     public static WeatherInformation of(JSONObject object ) {
 
