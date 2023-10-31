@@ -7,7 +7,6 @@ import org.springframework.kafka.core.ProducerFactory;
 import java.util.Map;
 
 public interface ProducerFactoryCreator {
-
     ProducerFactory<String, Person> createPersonProducerFactory(Map<String, Object> props);
 
     ProducerFactory<String, WeatherRegistered> createWeatherProducerFactory(Map<String, Object> props);

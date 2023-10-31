@@ -3,3 +3,11 @@ weather:
     url: http://api.weatherapi.com/v1/current.json?key=${ API_KEY }&q=
     key: ${ API_KEY }
     baseUrl: http://api.weatherapi.com/v1/current.json
+    
+spring:
+  kafka:
+    properties:
+      schema.registry.url: mock://testUrl
+    producer:
+      keySerializer: org.apache.kafka.common.serialization.StringSerializer
+      valueSerializer: io.confluent.kafka.serializers.KafkaAvroSerializer

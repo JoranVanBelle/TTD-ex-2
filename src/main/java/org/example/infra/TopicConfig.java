@@ -5,6 +5,6 @@ import org.springframework.kafka.core.KafkaAdmin;
 
 public interface TopicConfig {
 
-    NewTopic createTopic(String topicName, int partions, short replication);
+    NewTopic createTopic(String topicName, int partions, int replication);
 
 }
