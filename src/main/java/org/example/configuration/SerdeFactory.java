@@ -1,4 +1,4 @@
-package org.example.infra;
+package org.example.configuration;
 
 import static io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
@@ -13,11 +13,18 @@ import java.util.Map;
 @Configuration
 public class SerdeFactory {
 
-    @Value("${spring.kafka.properties.schema.registry.url}")
     private String schema_registry;
 
-    @Bean
+    public SerdeFactory(
+            @Value("${spring.kafka.properties.schema.registry.url}") String schema_registry
+    ) {
+        this.schema_registry = schema_registry;
+    }
+
     public SpecificAvroSerde<Person> personSerde(){
+
+        System.out.println("here");
+        System.out.println(schema_registry);
 
         final SpecificAvroSerde<Person> personSerde = new SpecificAvroSerde<>();
         Map<String, String> config = new HashMap<>();
