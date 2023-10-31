@@ -1,0 +1,35 @@
+{
+  "name": "PersonWeatherJoined",
+  "namespace": "org.example",
+  "type": "record",
+  "fields": [
+    {
+      "name": "firstName",
+      "type": "string"
+    },
+    {
+      "name": "lastName",
+      "type": "string"
+    },
+    {
+      "name": "age",
+      "type": "int"
+    },
+    {
+      "name": "job",
+      "type": "string"
+    },
+    {
+      "name": "city",
+      "type": "string"
+    },
+    {
+      "name": "tempC",
+      "type": "double"
+    },
+    {
+      "name": "condition",
+      "type": "string"
+    }
+  ]
+}
