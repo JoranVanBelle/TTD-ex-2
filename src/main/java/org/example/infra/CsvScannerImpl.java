@@ -29,10 +29,8 @@ public class CsvScannerImpl implements CsvScanner {
 
             return csvContent;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            throw new IllegalArgumentException(e.getMessage());
         }
-
-        return null;
     }
 
     private Row createRow(String rowContent) {

@@ -14,12 +14,10 @@ import java.util.Map;
 public class SerdeFactory {
 
     @Value("${spring.kafka.properties.schema.registry.url}")
-    private static String schema_registry;
+    private String schema_registry;
 
-    public static SpecificAvroSerde<Person> personSerde(){
-
-        System.out.println("here");
-        System.out.println(schema_registry);
+    @Bean
+    public SpecificAvroSerde<Person> personSerde(){
 
         final SpecificAvroSerde<Person> personSerde = new SpecificAvroSerde<>();
         Map<String, String> config = new HashMap<>();

@@ -13,11 +13,11 @@ public class PersonAdapterImpl implements PersonAdapter{
     public Person getPerson(Row personString) {
 
         if(rowContentIsNotEqualToFive(personString)) {
-            throw new IllegalArgumentException("number of values in a row is not correct...");
+            throw new IllegalArgumentException("%s number of variables in row expected...".formatted(NUMBER_OF_CONTENTS_ROW));
         }
 
         if(ageIsNotCorrect(personString)) {
-            throw new IllegalArgumentException("age is not correct...");
+            throw new IllegalArgumentException("The variable could not be converted to integer...");
         }
 
         return Person.newBuilder()
