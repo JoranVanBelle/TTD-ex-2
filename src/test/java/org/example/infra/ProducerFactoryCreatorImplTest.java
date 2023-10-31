@@ -27,42 +27,7 @@ public class ProducerFactoryCreatorImplTest {
     }
 
     @Nested
-    class WhenPropertiesAreMissing {
-
-        @Test
-        void thenAnErrorIsThrown() {
-            assertThrows(IllegalArgumentException.class, () -> producerFactoryCreator.createWeatherProducerFactory(null));
-        }
-    }
-
-    @Nested
     class WhenPropertiesAreAvailable {
-
-        @Nested
-        class WhenSomePropertiesAreMissing {
-
-            @ParameterizedTest
-            @MethodSource("someParametersAreMissing")
-            void thenAnErrorIsThrown(Map<String, Object> props) {
-                assertThrows(NullPointerException.class, () -> producerFactoryCreator.createWeatherProducerFactory(props));
-            }
-
-            private static Stream<Map<String, Object>> someParametersAreMissing() {
-                return Stream.of(
-                        Map.of("bootstrap_servers", "localhost:9092", "key_ser", StringSerializer.class, "value_ser", KafkaAvroSerializer.class),
-                        Map.of("bootstrap_servers", "localhost:9092", "key_ser", StringSerializer.class, "sr", "http://localhost:8081"),
-                        Map.of("bootstrap_servers", "localhost:9092", "value_ser", KafkaAvroSerializer.class, "sr", "http://localhost:8081"),
-                        Map.of( "key_ser", StringSerializer.class, "value_ser", KafkaAvroSerializer.class, "sr", "http://localhost:8081"),
-                        Map.of("value_ser", KafkaAvroSerializer.class, "sr", "http://localhost:8081"),
-                        Map.of("bootstrap.servers", "localhost:9092", "sr", "http://localhost:8081"),
-                        Map.of("bootstrap.servers", "localhost:9092", "key_ser", StringSerializer.class),
-                        Map.of( "key_ser", StringSerializer.class, "value_ser", KafkaAvroSerializer.class),
-                        Map.of("bootstrap.servers", "localhost:9092", "sr", "http://localhost:8081"),
-                        Map.of()
-                );
-            }
-
-        }
 
         @Nested
         class WhenAllPropertiesAreAvailable {

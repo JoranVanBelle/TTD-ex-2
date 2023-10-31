@@ -1,10 +1,11 @@
 package org.example.infra;
 
-import org.example.entity.CompleteWeatherInformation;
+import org.example.entity.WeatherInformation;
 import org.json.JSONObject;
+import org.springframework.web.client.RestTemplate;
 
 public interface ApiScanner {
 
-    CompleteWeatherInformation getApiResponse(String location);
+    WeatherInformation getApiResponse(RestTemplate restTemplate, String location);
 
 }

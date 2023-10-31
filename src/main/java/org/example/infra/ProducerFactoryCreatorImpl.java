@@ -18,6 +18,6 @@ public class ProducerFactoryCreatorImpl implements ProducerFactoryCreator {
 
     @Bean
     public ProducerFactory<String, WeatherRegistered> createWeatherProducerFactory(Map<String, Object> props) {
-        return null;
+        return new DefaultKafkaProducerFactory<>(props);
     }
 }

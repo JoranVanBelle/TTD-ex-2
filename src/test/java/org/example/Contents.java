@@ -1,7 +1,8 @@
 package org.example;
 
 import com.github.tomakehurst.wiremock.http.Body;
-import org.example.entity.CompleteWeatherInformation;
+import org.example.entity.WeatherInformation;
+import org.example.entity.WeatherInformation;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,8 +54,8 @@ public class Contents {
                 """);
     }
 
-    public static CompleteWeatherInformation apiResponse() throws JSONException {
-        return new CompleteWeatherInformation(new JSONObject("""
+    public static WeatherInformation apiResponse() throws JSONException {
+        return WeatherInformation.of(new JSONObject("""
                         {
                                     "location": {
                                         "name": "Lichtervelde",
@@ -99,8 +100,8 @@ public class Contents {
                 """));
     }
 
-    public static CompleteWeatherInformation apiResponseWithoutCity() throws JSONException {
-        return new CompleteWeatherInformation(new JSONObject("""
+    public static WeatherInformation apiResponseWithoutCity() throws JSONException {
+        return WeatherInformation.of(new JSONObject("""
                         {
                                     "location": {
                                         "region": "",
@@ -144,8 +145,8 @@ public class Contents {
                 """));
     }
 
-    public static CompleteWeatherInformation apiResponseWithoutTemp() throws JSONException {
-        return new CompleteWeatherInformation(new JSONObject("""
+    public static WeatherInformation apiResponseWithoutTemp() throws JSONException {
+        return WeatherInformation.of(new JSONObject("""
                         {
                                     "location": {
                                         "name": "Lichtervelde",
@@ -188,8 +189,8 @@ public class Contents {
                 """));
     }
 
-    public static CompleteWeatherInformation apiResponseWithoutConditionText() throws JSONException {
-        return new CompleteWeatherInformation(new JSONObject("""
+    public static WeatherInformation apiResponseWithoutConditionText() throws JSONException {
+        return WeatherInformation.of(new JSONObject("""
                         {
                                     "location": {
                                         "name": "Lichtervelde",

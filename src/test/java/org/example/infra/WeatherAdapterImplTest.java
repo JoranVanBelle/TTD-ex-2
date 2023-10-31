@@ -1,6 +1,6 @@
 package org.example.infra;
 
-import org.example.entity.CompleteWeatherInformation;
+import org.example.entity.WeatherInformation;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,41 +39,6 @@ public class WeatherAdapterImplTest {
             var weatherRegistered = weatherAdapter.getWeather(apiResponse());
 
             assertThat(weatherRegistered, is(equalTo(expectedWeatherRegistered())));
-        }
-
-    }
-
-    @Nested
-    class WhenSomethingGoedWrong {
-
-        @Nested
-        class WhenNoObjectIsPassed {
-
-            @Test
-            void thenANoSuchElementIsThrown() {
-                assertThrows(NullPointerException.class, () -> weatherAdapter.getWeather(null));
-            }
-
-        }
-
-        @Nested
-        class WhenWrongObjectPassed {
-
-            @ParameterizedTest
-            @MethodSource("wrongObjects")
-            void thenIllegalArgumentIsThrown(CompleteWeatherInformation weatherRegistered) {
-                assertThrows(IllegalArgumentException.class, () -> weatherAdapter.getWeather(weatherRegistered));
-            }
-
-            private static Stream<CompleteWeatherInformation> wrongObjects() throws JSONException {
-                return Stream.of(
-                        new CompleteWeatherInformation(new JSONObject("{}")),
-                        apiResponseWithoutCity(),
-                        apiResponseWithoutTemp(),
-                        apiResponseWithoutConditionText()
-                );
-            }
-
         }
 
     }

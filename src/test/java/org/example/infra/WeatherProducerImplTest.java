@@ -42,6 +42,8 @@ public class WeatherProducerImplTest {
                     .setCondition("moderate rain")
                     .build();
 
+            weatherProducer.sendRecord(expectedWeather);
+
             verify(kafkaTemplate, times(1)).send(eq("weather"), eq(expectedWeather));
 
         }
